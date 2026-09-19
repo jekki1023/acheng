@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "ACheng AI Product Capture — Taobao / 1688 / Coupang",
+  "version": "0.1.0",
+  "description": "AI 商品采集器公开版：支持淘宝、1688、Coupang，整理标题、选项、价格、库存、图片、详情并输出 AI_PRODUCT_CAPTURE_V1。",
+  "permissions": [
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://www.coupang.com/*",
+    "https://*.coupangcdn.com/*",
+    "https://item.taobao.com/*",
+    "https://*.alicdn.com/*",
+    "https://detail.1688.com/*",
+    "https://*.1688.com/*",
+    "https://itemcdn.tmall.com/1688offer/*",
+    "https://cbu01.alicdn.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.1688.com/page/*offerlist.htm*"
+      ],
+      "js": [
+        "alibaba-shop-bridge.js"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.coupang.com/vp/products/*",
+        "https://item.taobao.com/item.htm*",
+        "https://*.1688.com/page/*offerlist.htm*",
+        "https://detail.1688.com/offer/*.html*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "alibaba-shop-page-hook.js"
+      ],
+      "matches": [
+        "https://*.1688.com/*"
+      ]
+    }
+  ]
+}
